@@ -7,6 +7,7 @@
 		<artifactId>poc-sharing-data-between-services-axon</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+	<packaging>jar</packaging>
 	<artifactId>commonapi</artifactId>
 	<dependencies>
 		<dependency>
