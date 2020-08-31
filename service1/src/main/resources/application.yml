@@ -2,3 +2,7 @@ elasticsearch:
   host: localhost
   port: 9200
   scheme: http
+  
+axon:
+  axonserver:
+    servers: axonserver:8124
