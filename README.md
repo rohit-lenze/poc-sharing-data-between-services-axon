@@ -1,10 +1,10 @@
 # poc-sharing-data-between-services-axon
 
-##POC to explore multiple options of data sharing between mutiple services:
+## POC to explore multiple options of data sharing between mutiple services:
 1. using axon query handler
 2. Using axon event store.
 
-##There are two services:
+## There are two services:
 1. Service1: It behaves as the upstream service and uses spring's CommandLineRunner to creates multiple apps/libraries in the elastic 
              search and corresponding events in the axon event store.
 2. Service2: It behaves as the downstream service and reads data from service1 by sending queries and also accessing axon event store.
