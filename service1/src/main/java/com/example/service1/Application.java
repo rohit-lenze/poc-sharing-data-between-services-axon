@@ -178,6 +178,66 @@ public class Application implements CommandLineRunner {
         appIdsWithVersionMap.forEach((appId,
                 versionIds) -> versionIds.forEach(versionId -> commandGateway.sendAndWait(UpdateAppVersionCommand
                         .builder(new AppId(appId), new AppVersionId(versionId),
+                                new AppVersionNumber("123456789"),
+                                new AppBinaryName("123456789"))
+                        .price(new AppVersionPrice(Currency.getInstance("EUR"), 123456789.0))
+                        .shortDescription(new AppVersionShortDescription("123456789"))
+                        .longDescription(new AppVersionLongDescription("123456789"))
+                        .galleryImages(Arrays.asList(new AppVersionGalleryImage("123456789" + "thumbnail",
+                                "123456789" + "profile", "123456789" + "original")))
+                        .updateInformation(new AppVersionUpdateInfo("123456789"))
+                        .build())));
+        appIdsWithVersionMap.forEach((appId,
+                versionIds) -> versionIds.forEach(versionId -> commandGateway.sendAndWait(UpdateAppVersionCommand
+                        .builder(new AppId(appId), new AppVersionId(versionId),
+                                new AppVersionNumber("a"),
+                                new AppBinaryName("a"))
+                        .price(new AppVersionPrice(Currency.getInstance("EUR"), 20.0))
+                        .shortDescription(new AppVersionShortDescription("a"))
+                        .longDescription(new AppVersionLongDescription("a"))
+                        .galleryImages(Arrays.asList(new AppVersionGalleryImage("a" + "thumbnail",
+                                "a" + "profile", "a" + "original")))
+                        .updateInformation(new AppVersionUpdateInfo("a"))
+                        .build())));
+        appIdsWithVersionMap.forEach((appId,
+                versionIds) -> versionIds.forEach(versionId -> commandGateway.sendAndWait(UpdateAppVersionCommand
+                        .builder(new AppId(appId), new AppVersionId(versionId),
+                                new AppVersionNumber("ab"),
+                                new AppBinaryName("ab"))
+                        .price(new AppVersionPrice(Currency.getInstance("EUR"), 200.0))
+                        .shortDescription(new AppVersionShortDescription("ab"))
+                        .longDescription(new AppVersionLongDescription("ab"))
+                        .galleryImages(Arrays.asList(new AppVersionGalleryImage("ab" + "thumbnail",
+                                "abc" + "profile", "ab" + "original")))
+                        .updateInformation(new AppVersionUpdateInfo("ab"))
+                        .build())));
+        appIdsWithVersionMap.forEach((appId,
+                versionIds) -> versionIds.forEach(versionId -> commandGateway.sendAndWait(UpdateAppVersionCommand
+                        .builder(new AppId(appId), new AppVersionId(versionId),
+                                new AppVersionNumber("abc"),
+                                new AppBinaryName("abc"))
+                        .price(new AppVersionPrice(Currency.getInstance("EUR"), 201.0))
+                        .shortDescription(new AppVersionShortDescription("abc"))
+                        .longDescription(new AppVersionLongDescription("abc"))
+                        .galleryImages(Arrays.asList(new AppVersionGalleryImage("abc" + "thumbnail",
+                                "abc" + "profile", "abc" + "original")))
+                        .updateInformation(new AppVersionUpdateInfo("abc"))
+                        .build())));
+        appIdsWithVersionMap.forEach((appId,
+                versionIds) -> versionIds.forEach(versionId -> commandGateway.sendAndWait(UpdateAppVersionCommand
+                        .builder(new AppId(appId), new AppVersionId(versionId),
+                                new AppVersionNumber("abcd"),
+                                new AppBinaryName("abcd"))
+                        .price(new AppVersionPrice(Currency.getInstance("EUR"), 202.0))
+                        .shortDescription(new AppVersionShortDescription("abcd"))
+                        .longDescription(new AppVersionLongDescription("abcd"))
+                        .galleryImages(Arrays.asList(new AppVersionGalleryImage("abcd" + "thumbnail",
+                                "abcd" + "profile", "abcd" + "original")))
+                        .updateInformation(new AppVersionUpdateInfo("abcd"))
+                        .build())));
+        appIdsWithVersionMap.forEach((appId,
+                versionIds) -> versionIds.forEach(versionId -> commandGateway.sendAndWait(UpdateAppVersionCommand
+                        .builder(new AppId(appId), new AppVersionId(versionId),
                                 new AppVersionNumber("version_latest"),
                                 new AppBinaryName("binary_latest"))
                         .price(new AppVersionPrice(Currency.getInstance("EUR"), 1.0))
