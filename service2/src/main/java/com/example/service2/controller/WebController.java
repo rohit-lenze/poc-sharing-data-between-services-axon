@@ -37,7 +37,7 @@ class WebController {
                 .get();
         long endTime = System.currentTimeMillis();
         System.out.println(
-                "Using QueryHandler::Type of app-id: " + id + " is: " + appType + "TIME TAKEN:: "
+                "Using QueryHandler::Type of app-id: " + id + " is: " + appType + " TOTAL TIME TAKEN:: "
                         + (endTime - startTime) + "ms");
 
         String appId = new AppId(id).toString();
