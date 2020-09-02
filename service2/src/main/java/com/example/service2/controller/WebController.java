@@ -21,6 +21,8 @@ import com.example.commonapi.valueobjects.AppId;
 @Controller
 class WebController {
 
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_RESET = "\u001B[0m";
     private final QueryGateway queryGateway;
     private final EventStore eventStore;
 
@@ -37,8 +39,8 @@ class WebController {
                 .get();
         long endTime = System.currentTimeMillis();
         System.out.println(
-                "Using QueryHandler::Type of app-id: " + id + " is: " + appType + " TOTAL TIME TAKEN:: "
-                        + (endTime - startTime) + "ms");
+                "Using QueryHandler::Type of app-id: " + id + " is: " + appType + " TOTAL TIME TAKEN:: " + ANSI_GREEN_BACKGROUND
+                        + (endTime - startTime) + ANSI_RESET + " ms");
 
         String appId = new AppId(id).toString();
         Optional<? extends DomainEventMessage<?>> domainEventMessage = eventStore.readEvents(appId).asStream()
@@ -49,8 +51,8 @@ class WebController {
         }
         long endTime2 = System.currentTimeMillis();
         System.out.println(
-                "Using Event-Store::Type of app-id: " + id + " is: " + appType1 + " TOTAL TIME TAKEN:: "
-                        + (endTime2 - endTime) + "ms");
+                "Using Event-Store::Type of app-id: " + id + " is: " + appType1 + " TOTAL TIME TAKEN:: " + ANSI_GREEN_BACKGROUND
+                        + (endTime2 - endTime) + ANSI_RESET + " ms");
     }
 
     @GetMapping("/shortDesc/{id}/{versionId}")
@@ -70,7 +72,7 @@ class WebController {
             System.out.println("Using Event-Store::shortDesc of app-id: " + id + " is: "
                     + ((AppVersionShortDescriptionUpdatedEvent) eventMessage.get().getPayload()).getShortDescription().getValue()
                     + " current seq number:: " + eventMessage.get().getSequenceNumber() + " TOTAL TIME TAKEN:: "
-                    + (endTime - startTime) + "ms");
+                    + ANSI_GREEN_BACKGROUND +(endTime - startTime) +ANSI_RESET +" ms");
         }
 
         String appShortDescription = queryGateway
@@ -79,6 +81,6 @@ class WebController {
         long endTime2 = System.currentTimeMillis();
         System.out.println(
                 "Using QueryHandler::short desc. of app-id: " + id + " is: " + appShortDescription + " TOTAL TIME TAKEN:: "
-                        + (endTime2 - endTime) + "ms");
+                        +ANSI_GREEN_BACKGROUND+ (endTime2 - endTime) +ANSI_RESET +" ms");
     }
 }
