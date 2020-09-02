@@ -6,3 +6,6 @@ elasticsearch:
 axon:
   axonserver:
     servers: axonserver:8124
+    commit-timeout: 1000000
+    connect-timeout: 500000
+    keep-alive-timeout: 50000

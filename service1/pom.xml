@@ -26,8 +26,8 @@
 		</dependency>
 		<!-- Axon server dependency -->
 		<dependency>
-			<groupId>one.mosaiq</groupId>
-			<artifactId>mosaiq-axon-spring-boot-starter</artifactId>
+			<groupId>org.axonframework</groupId>
+			<artifactId>axon-spring-boot-starter</artifactId>
 		</dependency>
 	</dependencies>
 	<build>

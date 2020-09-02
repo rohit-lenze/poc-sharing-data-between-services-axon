@@ -17,14 +17,14 @@
 	<packaging>pom</packaging>
 	<properties>
 		<java.version>1.8</java.version>
-		<axon.version>4.3.4</axon.version>
+		<axon.version>4.4.2</axon.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>one.mosaiq</groupId>
-				<artifactId>mosaiq-axon-spring-boot-starter</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<groupId>org.axonframework</groupId>
+				<artifactId>axon-spring-boot-starter</artifactId>
+				<version>${axon.version}</version>
 			</dependency>
 			<!-- ElasticSearch Dependency -->
 			<dependency>
