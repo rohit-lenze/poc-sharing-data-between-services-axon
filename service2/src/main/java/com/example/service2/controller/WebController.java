@@ -3,7 +3,6 @@ package com.example.service2.controller;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Stream;
 
 import org.axonframework.eventhandling.DomainEventMessage;
 import org.axonframework.eventsourcing.eventstore.EventStore;
@@ -30,57 +29,56 @@ class WebController {
         this.eventStore = eventStore;
     }
 
-    @GetMapping("/query/{id}/{versionId}")
-    public void getAppTypeByQuery(@PathVariable String id, @PathVariable String versionId)
-            throws InterruptedException, ExecutionException {
-        long startTimeForAppType = System.currentTimeMillis();
+    @GetMapping("/appType/{id}")
+    public void getAppType(@PathVariable String id) throws InterruptedException, ExecutionException {
+        long startTime = System.currentTimeMillis();
         String appType = queryGateway
                 .query(new FindAppTypeByIdQuery(id), ResponseTypes.instanceOf(String.class))
                 .get();
-        long endTimeForAppType = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis();
         System.out.println(
                 "Using QueryHandler::Type of app-id: " + id + " is: " + appType + "TIME TAKEN:: "
-                        + (endTimeForAppType - startTimeForAppType) + "ms");
+                        + (endTime - startTime) + "ms");
 
-        String appShortDescription = queryGateway
-                .query(new FindAppShortDescriptionByIdQuery(id, versionId), ResponseTypes.instanceOf(String.class))
-                .get();
-        long endTimeForShortDescription = System.currentTimeMillis();
-        System.out.println(
-                "Using QueryHandler::short desc. of app-id: " + id + " is: " + appShortDescription + " TOTAL TIME TAKEN:: "
-                        + (endTimeForShortDescription - endTimeForAppType) + "ms");
-    }
-
-    @GetMapping("/eventstore/{id}/{versionId}")
-    public void getAppTypeByIdFromEventStore(@PathVariable String id, @PathVariable String versionId) {
-        long startTimeForAppType = System.currentTimeMillis();
         String appId = new AppId(id).toString();
         Optional<? extends DomainEventMessage<?>> domainEventMessage = eventStore.readEvents(appId).asStream()
                 .filter(event -> Objects.equals(AppCreatedEvent.class, event.getPayloadType())).findFirst();
-        String appType = null;
+        String appType1 = null;
         if (domainEventMessage.isPresent()) {
-            appType = ((AppCreatedEvent) domainEventMessage.get().getPayload()).getType().getValue();
+            appType1 = ((AppCreatedEvent) domainEventMessage.get().getPayload()).getType().getValue();
         }
-        long endTimeForAppType = System.currentTimeMillis();
+        long endTime2 = System.currentTimeMillis();
         System.out.println(
-                "Using Event-Store::Type of app-id: " + id + " is: " + appType + " TOTAL TIME TAKEN:: "
-                        + (endTimeForAppType - startTimeForAppType) + "ms");
+                "Using Event-Store::Type of app-id: " + id + " is: " + appType1 + " TOTAL TIME TAKEN:: "
+                        + (endTime2 - endTime) + "ms");
+    }
+
+    @GetMapping("/shortDesc/{id}/{versionId}")
+    public void getAppTypeByIdFromEventStore(@PathVariable String id, @PathVariable String versionId)
+            throws InterruptedException, ExecutionException {
 //        Optional<Long> lastSequenceNumberFor = eventStore
 //                .lastSequenceNumberFor(appAddedToMachineEvent.getAppReference().getAppId().toString());
-        Stream<? extends DomainEventMessage<?>> asStream = eventStore.readEvents(appId).asStream();
-        Optional<? extends DomainEventMessage<?>> eventMessage = Optional.empty();
-        eventMessage = asStream
+        String appId = new AppId(id).toString();
+        long startTime = System.currentTimeMillis();
+        Optional<? extends DomainEventMessage<?>> eventMessage = eventStore.readEvents(appId).asStream()
                 .filter(event -> Objects.equals(AppVersionShortDescriptionUpdatedEvent.class, event.getPayloadType()))
                 .filter(event -> Objects.equals(versionId,
                         ((AppVersionShortDescriptionUpdatedEvent) event.getPayload()).getVersionId().getValue()))
                 .reduce((first, second) -> second);
-        long endTimeForAppShortDesc = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis();
         if (eventMessage.isPresent()) {
             System.out.println("Using Event-Store::shortDesc of app-id: " + id + " is: "
                     + ((AppVersionShortDescriptionUpdatedEvent) eventMessage.get().getPayload()).getShortDescription().getValue()
                     + " current seq number:: " + eventMessage.get().getSequenceNumber() + " TOTAL TIME TAKEN:: "
-                    + (endTimeForAppShortDesc - endTimeForAppType) + "ms");
+                    + (endTime - startTime) + "ms");
         }
-    }
 
+        String appShortDescription = queryGateway
+                .query(new FindAppShortDescriptionByIdQuery(id, versionId), ResponseTypes.instanceOf(String.class))
+                .get();
+        long endTime2 = System.currentTimeMillis();
+        System.out.println(
+                "Using QueryHandler::short desc. of app-id: " + id + " is: " + appShortDescription + " TOTAL TIME TAKEN:: "
+                        + (endTime2 - endTime) + "ms");
+    }
 }
