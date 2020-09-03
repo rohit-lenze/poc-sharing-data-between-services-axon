@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.example.commonapi.events.AppCreatedEvent;
-import com.example.commonapi.events.AppTypeUpdatedEvent;
 import com.example.commonapi.events.AppVersionAddedEvent;
 import com.example.commonapi.events.AppVersionBinaryUpdatedEvent;
 import com.example.commonapi.events.AppVersionGalleryImageUpdatedEvent;
@@ -50,12 +49,6 @@ class AppProjection {
                 appCreatedEvent.getDeveloperId().getValue(),
                 appCreatedEvent.getLifeCycle().getValue(),
                 appCreatedEvent.getCreatedOn()));
-    }
-
-    @EventHandler
-    void on(AppTypeUpdatedEvent appUpdatedEvent) throws IOException {
-        LOGGER.info("App Updated Event Occured....");
-        appDaoService.updateApp(appUpdatedEvent.getId().getValue(), appUpdatedEvent.getType().getValue());
     }
 
     @EventHandler

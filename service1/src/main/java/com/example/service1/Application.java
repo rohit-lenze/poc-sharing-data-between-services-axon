@@ -1,5 +1,9 @@
 package com.example.service1;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,12 +34,10 @@ import com.example.commonapi.valueobjects.AppVersionUpdateInfo;
 import com.example.commonapi.valueobjects.DeveloperId;
 import com.example.service1.command.AddAppVersionCommand;
 import com.example.service1.command.CreateAppCommand;
-import com.example.service1.command.UpdateAppTypeCommand;
 import com.example.service1.command.UpdateAppVersionCommand;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
-
     @Autowired
     private CommandGateway commandGateway;
 
@@ -70,9 +72,31 @@ public class Application implements CommandLineRunner {
                     .build());
         }
         Set<String> appIds = appIdsWithVersionMap.keySet();
-        updateAppType(appIds);
         addAppVersion(appIds);
         updateAppVersion(appIdsWithVersionMap);
+        String appId1 = appIds.iterator().next();
+        updateAppVersion(appId1, appIdsWithVersionMap.get(appId1).get(0));
+    }
+
+    private void updateAppVersion(String appId, String versionId) {
+        for (int i = 0; i < 21000; i++) {
+            commandGateway.sendAndWait(UpdateAppVersionCommand
+                    .builder(new AppId(appId), new AppVersionId(versionId),
+                            new AppVersionNumber(Integer.toString(i)),
+                            new AppBinaryName("binaryName" + i))
+                    .price(new AppVersionPrice(Currency.getInstance("EUR"), (double) i))
+                    .shortDescription(new AppVersionShortDescription("appShortDescription" + i))
+                    .longDescription(new AppVersionLongDescription("appLongDescription" + i))
+                    .galleryImages(Arrays.asList(new AppVersionGalleryImage("image" + i + "thumbnail",
+                            "image" + i + "profile", "image" + i + "original")))
+                    .updateInformation(new AppVersionUpdateInfo("whatsNewInVersion" + i))
+                    .build());
+        }
+        try (FileWriter fw = new FileWriter(new File("a.txt"))) {
+            fw.write("appId is:: " + appId + " version id:: " + versionId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateAppVersion(Map<String, List<String>> appIdsWithVersionMap) {
@@ -281,9 +305,5 @@ public class Application implements CommandLineRunner {
                             "image_" + "profile", "image_" + "original")))
                     .updateInformation(new AppVersionUpdateInfo("whatsNewInVersion")).build());
         });
-    }
-
-    private void updateAppType(Set<String> appIds) {
-        appIds.forEach(appId -> commandGateway.sendAndWait(new UpdateAppTypeCommand(new AppId(appId), AppType.LIBRARY)));
     }
 }

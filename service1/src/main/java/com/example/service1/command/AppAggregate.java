@@ -5,7 +5,6 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -16,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.commonapi.events.AppCreatedEvent;
-import com.example.commonapi.events.AppTypeUpdatedEvent;
 import com.example.commonapi.events.AppVersionAddedEvent;
 import com.example.commonapi.valueobjects.AppId;
 import com.example.commonapi.valueobjects.AppLifeCycle;
@@ -74,14 +72,6 @@ class AppAggregate {
     }
 
     @CommandHandler
-    private void handle(UpdateAppTypeCommand updateAppCommand) {
-        AppId editableAppId = updateAppCommand.getId();
-        if (!Objects.equals(this.type, updateAppCommand.getType())) {
-            apply(new AppTypeUpdatedEvent(editableAppId, updateAppCommand.getType()));
-        }
-    }
-
-    @CommandHandler
     private void handle(AddAppVersionCommand addAppVersionCommand) {
         LOGGER.info("add App version command occured for app id: {}", addAppVersionCommand.getId().getValue());
         apply(AppVersionAddedEvent.builder(addAppVersionCommand.getId(), addAppVersionCommand.getVersionId(),
@@ -102,10 +92,5 @@ class AppAggregate {
                 appVersionAddedEvent.getBinaryName(), appVersionAddedEvent.getVersionLifeCycle(),
                 appVersionAddedEvent.getVisibility(), appVersionAddedEvent.getCreatedOn()));
         this.lastModifiedOn = appVersionAddedEvent.getCreatedOn();
-    }
-
-    @EventSourcingHandler
-    private void on(AppTypeUpdatedEvent appUpdatedEvent) {
-        this.type = appUpdatedEvent.getType();
     }
 }
