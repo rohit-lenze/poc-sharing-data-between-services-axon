@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.queryhandling.QueryHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.example.commonapi.events.AppCreatedEvent;
@@ -29,8 +27,6 @@ import com.google.common.base.Objects;
 @Component
 class AppProjection {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppProjection.class);
-
     private final AppDaoService appDaoService;
 
     AppProjection(AppDaoService appDaoService) {
@@ -39,7 +35,6 @@ class AppProjection {
 
     @EventHandler
     void on(AppCreatedEvent appCreatedEvent) throws IOException {
-        LOGGER.info("App Created Event Occured....");
         appDaoService.createApp(new AppEntity(
                 appCreatedEvent.getId().getValue(),
                 appCreatedEvent.getName().getValue(),
@@ -53,16 +48,12 @@ class AppProjection {
 
     @EventHandler
     void on(AppVersionAddedEvent appVersionAddedEvent) throws IOException {
-        LOGGER.info("App version added Event Occured for app id: {}", appVersionAddedEvent.getId().getValue());
         appDaoService.addVersion(appVersionAddedEvent.getId().getValue(),
                 convertToAppVersionEntity(appVersionAddedEvent));
     }
 
     @EventHandler
     void on(AppVersionShortDescriptionUpdatedEvent appVersionShortDescriptionUpdatedEvent) throws IOException {
-        LOGGER.info("AppVersionShortDescriptionUpdatedEvent Event Occured for app id: {} and version id : {}",
-                appVersionShortDescriptionUpdatedEvent.getId().getValue(),
-                appVersionShortDescriptionUpdatedEvent.getVersionId().getValue());
         appDaoService.updateVersionShortDescription(appVersionShortDescriptionUpdatedEvent.getId().getValue(),
                 appVersionShortDescriptionUpdatedEvent.getVersionId().getValue(),
                 appVersionShortDescriptionUpdatedEvent.getShortDescription().getValue());
@@ -70,9 +61,6 @@ class AppProjection {
 
     @EventHandler
     void on(AppVersionLongDescriptionUpdatedEvent appVersionLongDescriptionUpdatedEvent) throws IOException {
-        LOGGER.info("AppVersionLongDescriptionUpdatedEvent Event Occured for app id: {} and version id : {}",
-                appVersionLongDescriptionUpdatedEvent.getId().getValue(),
-                appVersionLongDescriptionUpdatedEvent.getVersionId().getValue());
         appDaoService.updateVersionLongDescription(appVersionLongDescriptionUpdatedEvent.getId().getValue(),
                 appVersionLongDescriptionUpdatedEvent.getVersionId().getValue(),
                 appVersionLongDescriptionUpdatedEvent.getLongDescription().getValue());
@@ -80,9 +68,6 @@ class AppProjection {
 
     @EventHandler
     void on(AppVersionPriceUpdatedEvent appVersionPriceUpdatedEvent) throws IOException {
-        LOGGER.info("AppVersionPriceUpdatedEvent Event Occured for app id: {} and version id : {}",
-                appVersionPriceUpdatedEvent.getId().getValue(),
-                appVersionPriceUpdatedEvent.getVersionId().getValue());
         appDaoService.updateVersionPrice(appVersionPriceUpdatedEvent.getId().getValue(),
                 appVersionPriceUpdatedEvent.getVersionId().getValue(),
                 appVersionPriceUpdatedEvent.getPrice().getValue());
@@ -90,9 +75,6 @@ class AppProjection {
 
     @EventHandler
     void on(AppVersionUpdateInformationUpdatedEvent appVersionUpdateInformationUpdatedEvent) throws IOException {
-        LOGGER.info("AppVersionUpdateInformationUpdatedEvent Event Occured for app id: {} and version id : {}",
-                appVersionUpdateInformationUpdatedEvent.getId().getValue(),
-                appVersionUpdateInformationUpdatedEvent.getVersionId().getValue());
         appDaoService.updateVersionUpdateInformation(appVersionUpdateInformationUpdatedEvent.getId().getValue(),
                 appVersionUpdateInformationUpdatedEvent.getVersionId().getValue(),
                 appVersionUpdateInformationUpdatedEvent.getUpdateInformation().getValue());
@@ -100,9 +82,6 @@ class AppProjection {
 
     @EventHandler
     void on(AppVersionNumberUpdatedEvent appVersionNumberUpdatedEvent) throws IOException {
-        LOGGER.info("AppVersionNumberUpdatedEvent Event Occured for app id: {} and version id : {}",
-                appVersionNumberUpdatedEvent.getId().getValue(),
-                appVersionNumberUpdatedEvent.getVersionId().getValue());
         appDaoService.updateVersionNumber(appVersionNumberUpdatedEvent.getId().getValue(),
                 appVersionNumberUpdatedEvent.getVersionId().getValue(),
                 appVersionNumberUpdatedEvent.getVersionNumber().getValue());
@@ -110,9 +89,6 @@ class AppProjection {
 
     @EventHandler
     void on(AppVersionBinaryUpdatedEvent appVersionBinaryUpdatedEvent) throws IOException {
-        LOGGER.info("AppVersionBinaryUpdatedEvent Event Occured for app id: {} and version id : {}",
-                appVersionBinaryUpdatedEvent.getId().getValue(),
-                appVersionBinaryUpdatedEvent.getVersionId().getValue());
         appDaoService.updateBinaryName(appVersionBinaryUpdatedEvent.getId().getValue(),
                 appVersionBinaryUpdatedEvent.getVersionId().getValue(),
                 appVersionBinaryUpdatedEvent.getBinaryName().getValue());
@@ -120,9 +96,6 @@ class AppProjection {
 
     @EventHandler
     void on(AppVersionGalleryImageUpdatedEvent appVersionGalleryImageUpdatedEvent) throws IOException {
-        LOGGER.info("AppVersionGalleryImageUpdatedEvent Event Occured for app id: {} and version id : {}",
-                appVersionGalleryImageUpdatedEvent.getId().getValue(),
-                appVersionGalleryImageUpdatedEvent.getVersionId().getValue());
         appDaoService.updateVersionGalleryImages(appVersionGalleryImageUpdatedEvent.getId().getValue(),
                 appVersionGalleryImageUpdatedEvent.getVersionId().getValue(),
                 mapToAppVersionGalleryImageEntity(appVersionGalleryImageUpdatedEvent.getGalleryImages()));

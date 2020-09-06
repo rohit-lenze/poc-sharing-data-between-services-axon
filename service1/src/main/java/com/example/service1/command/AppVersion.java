@@ -9,8 +9,6 @@ import java.util.Objects;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.EntityId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.example.commonapi.events.AppVersionBinaryUpdatedEvent;
 import com.example.commonapi.events.AppVersionGalleryImageUpdatedEvent;
@@ -38,8 +36,6 @@ import lombok.Data;
 @AllArgsConstructor
 class AppVersion {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppVersion.class);
-
     @EntityId
     private AppVersionId versionId;
     private AppVersionPrice price;
@@ -57,8 +53,6 @@ class AppVersion {
     private void handle(UpdateAppVersionCommand updateAppVersionCommand) {
         AppId appId = updateAppVersionCommand.getId();
         AppVersionId versionIdToUpdate = updateAppVersionCommand.getVersionId();
-        LOGGER.info("update App version command occured for app id: {} and version id: {}",
-                appId.getValue(), versionIdToUpdate.getValue());
 
         if (!Objects.equals(this.shortDescription, updateAppVersionCommand.getShortDescription())) {
             apply(new AppVersionShortDescriptionUpdatedEvent(appId, versionIdToUpdate,

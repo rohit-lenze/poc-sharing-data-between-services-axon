@@ -30,16 +30,26 @@ Currently Service2 fetches two types of data:
   - http://localhost:8081/shortDesc/{appId}/{versionId}
   
 ## After multiple runs below is the outcome:
-### With Immutable data, which is pretty straigh forward for event store as we need to process only one event in event store for a specific aggregateIdentifier
-| AppId | aggregateSequenceNumber | AppType | Time Taken with Query-Handler | Time Taken with Event-Store |
-|-------|-------------------------|---------|-------------------------------|-----------------------------|
-|d6658316-4d4d-465b-af65-bfe68c0999d8|0|App|186ms|186ms
-|d6658316-4d4d-465b-af65-bfe68c0999d8|0|App|186ms|186ms
-|d6658316-4d4d-465b-af65-bfe68c0999d8|0|App|186ms|186ms
+##### With Immutable data, which is pretty straight forward for event store as we need to process only one event in event store for a specific aggregateIdentifier
+| Run | AppId | AppType | Time Taken with Query-Handler | Time Taken with Event-Store |
+|-----|-------|---------|-------------------------------|-----------------------------|
+|1st|d6658316-4d4d-465b-af65-bfe68c0999d8|App|14 ms|15 ms
+|2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|App|16 ms|13 ms
+|3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|App|16 ms|12 ms
+|4th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|12 ms|9 ms
+|5th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|16 ms|10 ms
+|6th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|10 ms|7 ms
+|7th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|22 ms|19 ms
 
-### With Mutable data, which is not that straight forward in event store as we need to process multiple events(20000 in this case) in event store for a specific aggregateIdentifier.
-| AppId | aggregateSequenceNumber | AppType | Time Taken with Query-Handler | Time Taken with Event-Store |
-|-------|-------------------------|---------|-------------------------------|-----------------------------|
-|d6658316-4d4d-465b-af65-bfe68c0999d8|0|App|186ms|186ms
-|d6658316-4d4d-465b-af65-bfe68c0999d8|0|App|186ms|186ms
-|d6658316-4d4d-465b-af65-bfe68c0999d8|0|App|186ms|186ms
+##### With Mutable data, which is not that straight forward in event store as we need to process multiple events(20000 in this case) in event store for a specific aggregateIdentifier.
+| Run | AppId | AppType | Time Taken with Query-Handler | Time Taken with Event-Store |
+|-----|-------|---------|-------------------------------|-----------------------------|
+|1st|d6658316-4d4d-465b-af65-bfe68c0999d8|App|12 ms|27995 ms
+|2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|App|6 ms|27995 ms
+|3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|App|7 ms|27995 ms
+|4th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|8 ms|27995 ms
+|5th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|8 ms|27995 ms
+|6th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|8 ms|27995 ms
+|7th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|18 ms|27995 ms
+
+Token no at which the event was found: 28053, aggregateSequenceNumber:27995 total no of Tokens in ES: 28059, Total number of aggregates: 30

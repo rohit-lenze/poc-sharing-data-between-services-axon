@@ -11,8 +11,6 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateMember;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.example.commonapi.events.AppCreatedEvent;
 import com.example.commonapi.events.AppVersionAddedEvent;
@@ -26,8 +24,6 @@ import com.example.commonapi.valueobjects.DeveloperId;
 
 @Aggregate
 class AppAggregate {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppAggregate.class);
 
     @AggregateIdentifier
     private AppId id;
@@ -46,7 +42,6 @@ class AppAggregate {
 
     @CommandHandler
     private AppAggregate(CreateAppCommand createAppCommand) {
-        LOGGER.info("Create App command occured with app name: {}", createAppCommand.getName().getValue());
         apply(AppCreatedEvent.builder(createAppCommand.getId(), createAppCommand.getName(), createAppCommand.getType(),
                 createAppCommand.getVersionId(), createAppCommand.getVersionNumber(), createAppCommand.getBinaryName(),
                 AppVersionLifeCycle.ACTIVE, AppVersionVisibility.PUBLIC, createAppCommand.getDeveloperId(), AppLifeCycle.ACTIVE,
@@ -59,7 +54,6 @@ class AppAggregate {
 
     @EventSourcingHandler
     private void on(AppCreatedEvent appCreatedEvent) {
-        LOGGER.info("App created event occured with app name: {}", appCreatedEvent.getName().getValue());
         this.id = appCreatedEvent.getId();
         this.name = appCreatedEvent.getName();
         this.type = appCreatedEvent.getType();
@@ -73,7 +67,6 @@ class AppAggregate {
 
     @CommandHandler
     private void handle(AddAppVersionCommand addAppVersionCommand) {
-        LOGGER.info("add App version command occured for app id: {}", addAppVersionCommand.getId().getValue());
         apply(AppVersionAddedEvent.builder(addAppVersionCommand.getId(), addAppVersionCommand.getVersionId(),
                 addAppVersionCommand.getVersionNumber(), addAppVersionCommand.getBinaryName(), AppVersionLifeCycle.ACTIVE,
                 AppVersionVisibility.PUBLIC, addAppVersionCommand.getCreatedOn()).price(addAppVersionCommand.getPrice())

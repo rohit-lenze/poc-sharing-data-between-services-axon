@@ -69,20 +69,14 @@ class AppRepository {
     }
 
     void save(AppEntity appEntity) throws IOException {
-        LOGGER.info("creating  app in app repository with id: {}", appEntity.getId());
+        LOGGER.info("creating  app in app repository with name: {}", appEntity.getName());
         IndexRequest indexRequest = new IndexRequest(INDEX).id(appEntity.getId());
         indexRequest.source(getAppContent(appEntity));
         client.index(indexRequest, RequestOptions.DEFAULT);
     }
 
-    void updateApp(String appId, String name) throws IOException {
-        UpdateRequest updateRequest = new UpdateRequest(INDEX, appId);
-        updateRequest.doc(NAME, name);
-        client.update(updateRequest, RequestOptions.DEFAULT);
-    }
-
     void addVersion(String id, AppVersionEntity appVersionEntity) throws IOException {
-        LOGGER.info("adding a new version with id: {} to app with id: {}", appVersionEntity.getVersionId(), id);
+        LOGGER.info("adding a new version with number: {} to app with id: {}", appVersionEntity.getVersionNumber(), id);
         UpdateRequest updateRequest = new UpdateRequest(INDEX, id);
         Map<String, Object> parameters = Collections.singletonMap("appVersion",
                 getAppVersionContent(appVersionEntity).map());
@@ -93,7 +87,7 @@ class AppRepository {
 
     void updateVersionGalleryImages(String appId, String versionId, List<AppVersionGalleryImageEntity> galleryImages)
             throws IOException {
-        LOGGER.info("updating the version's galleryImages with id: {} from app with id: {}", appId, versionId);
+        LOGGER.info("updating the version's galleryImages with id: {} from app with id: {}", versionId, appId);
 
         // To convert List<AppVersionGalleryImageEntity> to List<Map<String, String>>,
         // keeping structure same.

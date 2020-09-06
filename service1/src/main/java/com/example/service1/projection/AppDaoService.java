@@ -23,10 +23,6 @@ public class AppDaoService {
         appRepository.save(appEntity);
     }
 
-    void updateApp(String appId, String name) throws IOException {
-        appRepository.updateApp(appId, name);
-    }
-
     void addVersion(String id, AppVersionEntity appVersionEntity) throws IOException {
         appRepository.addVersion(id, appVersionEntity);
     }
