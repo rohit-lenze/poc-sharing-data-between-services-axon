@@ -18,8 +18,8 @@ Apart from above there is commonapi which is included as dependency in above ser
   - Start Service1 and Service2.
 
 Currently Service2 fetches two types of data:
-  - Immutable( In this case it is appType, as it cannot be changed after the app is created)
-  - Mutable( In this case it is appShortFDescription, as it can be changed after the app is created)
+  - Immutable( Like appType in case of app-inventory, it cannot be changed once the app is created)
+  - Mutable( Like appShortFDescription, it can be changed by events after its creation)
   
  To get apptype of an app, hit below url in browser, in console it shows the total time taken to fetch the apptype using query-handler
  as well as using event-store respectively:
@@ -30,7 +30,7 @@ Currently Service2 fetches two types of data:
   - http://localhost:8081/shortDesc/{appId}/{versionId}
   
 ## After multiple runs below is the outcome:
-##### With Immutable data, which cann't be changed once created like AppType in case of app-inventory.
+##### With Immutable data.
 | Run | AppId | Time Taken with Query-Handler | Time Taken with Event-Store |
 |-----|-------|-------------------------------|-----------------------------|
 |1st|d6658316-4d4d-465b-af65-bfe68c0999d8|14 ms|15 ms
@@ -41,7 +41,7 @@ Currently Service2 fetches two types of data:
 |6th|d6658316-4d4d-465b-af65-bfe68c0999d8|10 ms|7 ms
 |7th|d6658316-4d4d-465b-af65-bfe68c0999d8|22 ms|19 ms
 
-##### With Mutable data, which can be changed by events after its creation(without snapshot) like appShortDescription in case of app-inventory.
+##### With Mutable data( without snapshot).
 | Run | AppId | Time Taken with Query-Handler | Time Taken with Event-Store |
 |-----|-------|-------------------------------|-----------------------------|
 |1st|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|27995 ms
@@ -52,7 +52,7 @@ Currently Service2 fetches two types of data:
 |6th|d6658316-4d4d-465b-af65-bfe68c0999d8|8 ms|27995 ms
 |7th|d6658316-4d4d-465b-af65-bfe68c0999d8|18 ms|27995 ms
 
-##### With Mutable data, which can be changed by events after its creation(with snapshot).
+##### With Mutable data( with snapshot).
 | Run | AppId | Time Taken with Query-Handler | Time Taken with Event-Store |
 |-----|-------|-------------------------------|-----------------------------|
 |1st|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|9 ms
