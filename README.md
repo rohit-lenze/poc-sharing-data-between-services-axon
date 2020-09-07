@@ -30,38 +30,38 @@ Currently Service2 fetches two types of data:
   - http://localhost:8081/shortDesc/{appId}/{versionId}
   
 ## After multiple runs below is the outcome:
-##### With Immutable data, which cann't be changed once created.
-| Run | AppId | AppType | Time Taken with Query-Handler | Time Taken with Event-Store |
+##### With Immutable data, which cann't be changed once created like AppType in case of app-inventory.
+| Run | AppId | Time Taken with Query-Handler | Time Taken with Event-Store |
 |-----|-------|---------|-------------------------------|-----------------------------|
-|1st|d6658316-4d4d-465b-af65-bfe68c0999d8|App|14 ms|15 ms
-|2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|App|16 ms|13 ms
-|3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|App|16 ms|12 ms
-|4th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|12 ms|9 ms
-|5th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|16 ms|10 ms
-|6th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|10 ms|7 ms
-|7th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|22 ms|19 ms
+|1st|d6658316-4d4d-465b-af65-bfe68c0999d8|14 ms|15 ms
+|2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|16 ms|13 ms
+|3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|16 ms|12 ms
+|4th|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|9 ms
+|5th|d6658316-4d4d-465b-af65-bfe68c0999d8|16 ms|10 ms
+|6th|d6658316-4d4d-465b-af65-bfe68c0999d8|10 ms|7 ms
+|7th|d6658316-4d4d-465b-af65-bfe68c0999d8|22 ms|19 ms
 
-##### With Mutable data, which can be changed by events after its creation(without snapshot).
-| Run | AppId | AppType | Time Taken with Query-Handler | Time Taken with Event-Store |
+##### With Mutable data, which can be changed by events after its creation(without snapshot) like appShortDescription in case of app-inventory.
+| Run | AppId | Time Taken with Query-Handler | Time Taken with Event-Store |
 |-----|-------|---------|-------------------------------|-----------------------------|
-|1st|d6658316-4d4d-465b-af65-bfe68c0999d8|App|12 ms|27995 ms
-|2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|App|6 ms|27995 ms
-|3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|App|7 ms|27995 ms
-|4th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|8 ms|27995 ms
-|5th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|8 ms|27995 ms
-|6th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|8 ms|27995 ms
-|7th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|18 ms|27995 ms
+|1st|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|27995 ms
+|2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|6 ms|27995 ms
+|3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|7 ms|27995 ms
+|4th|d6658316-4d4d-465b-af65-bfe68c0999d8|8 ms|27995 ms
+|5th|d6658316-4d4d-465b-af65-bfe68c0999d8|8 ms|27995 ms
+|6th|d6658316-4d4d-465b-af65-bfe68c0999d8|8 ms|27995 ms
+|7th|d6658316-4d4d-465b-af65-bfe68c0999d8|18 ms|27995 ms
 
 ##### With Mutable data, which can be changed by events after its creation(with snapshot).
-| Run | AppId | AppType | Time Taken with Query-Handler | Time Taken with Event-Store |
+| Run | AppId | Time Taken with Query-Handler | Time Taken with Event-Store |
 |-----|-------|---------|-------------------------------|-----------------------------|
-|1st|d6658316-4d4d-465b-af65-bfe68c0999d8|App|12 ms|9 ms
-|2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|App|11 ms|10 ms
-|3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|App|12 ms|7 ms
-|4th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|12 ms|9 ms
-|5th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|19 ms|11 ms
-|6th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|24 ms|15 ms
-|7th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|10 ms|10 ms
+|1st|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|9 ms
+|2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|11 ms|10 ms
+|3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|7 ms
+|4th|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|9 ms
+|5th|d6658316-4d4d-465b-af65-bfe68c0999d8|19 ms|11 ms
+|6th|d6658316-4d4d-465b-af65-bfe68c0999d8|24 ms|15 ms
+|7th|d6658316-4d4d-465b-af65-bfe68c0999d8|10 ms|10 ms
 
 - Total no of Tokens in Event-Store: 28059.
 - Total number of aggregates: 30.
