@@ -65,6 +65,6 @@ Currently Service2 fetches two types of data:
 
 - Total no of Tokens in Event-Store: 28059.
 - Total number of aggregates: 30.
-- In case of Mutable data, Token no at which the desired event was found: 28053.
-- In case of Mutable data, Total no of Tokens for the given aggregateIdentifier(d6658316-4d4d-465b-af65-bfe68c0999d8): 28001
-- In case of Mutable data, AggregateSequenceNumber for the given AppVersionShortDescriptionUpdatedEvent: 27995
+- Total no of Tokens for the given aggregateIdentifier(d6658316-4d4d-465b-af65-bfe68c0999d8): 28001
+- In case of Mutable data, Token no at which the desired event(AppVersionShortDescriptionUpdatedEvent) was found: 28053.
+- In case of Mutable data, AggregateSequenceNumber for the given event(AppVersionShortDescriptionUpdatedEvent): 27995
