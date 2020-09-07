@@ -32,7 +32,7 @@ Currently Service2 fetches two types of data:
 ## After multiple runs below is the outcome:
 ##### With Immutable data, which cann't be changed once created like AppType in case of app-inventory.
 | Run | AppId | Time Taken with Query-Handler | Time Taken with Event-Store |
-|-----|-------|---------|-------------------------------|-----------------------------|
+|-----|-------|-------------------------------|-----------------------------|
 |1st|d6658316-4d4d-465b-af65-bfe68c0999d8|14 ms|15 ms
 |2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|16 ms|13 ms
 |3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|16 ms|12 ms
@@ -43,7 +43,7 @@ Currently Service2 fetches two types of data:
 
 ##### With Mutable data, which can be changed by events after its creation(without snapshot) like appShortDescription in case of app-inventory.
 | Run | AppId | Time Taken with Query-Handler | Time Taken with Event-Store |
-|-----|-------|---------|-------------------------------|-----------------------------|
+|-----|-------|-------------------------------|-----------------------------|
 |1st|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|27995 ms
 |2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|6 ms|27995 ms
 |3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|7 ms|27995 ms
@@ -54,7 +54,7 @@ Currently Service2 fetches two types of data:
 
 ##### With Mutable data, which can be changed by events after its creation(with snapshot).
 | Run | AppId | Time Taken with Query-Handler | Time Taken with Event-Store |
-|-----|-------|---------|-------------------------------|-----------------------------|
+|-----|-------|-------------------------------|-----------------------------|
 |1st|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|9 ms
 |2nd|d6658316-4d4d-465b-af65-bfe68c0999d8|11 ms|10 ms
 |3rd|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|7 ms
