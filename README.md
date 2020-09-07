@@ -63,4 +63,8 @@ Currently Service2 fetches two types of data:
 |6th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|24 ms|15 ms
 |7th|d6658316-4d4d-465b-af65-bfe68c0999d8|App|10 ms|10 ms
 
-Total no of Tokens in Event-Store: 28059, Total number of aggregates: 30
+Total no of Tokens in Event-Store: 28059.
+Total number of aggregates: 30.
+Token no at which the desired event was found: 28053.
+Total no of Tokens for the given aggregateIdentifier(d6658316-4d4d-465b-af65-bfe68c0999d8): 28001
+AggregateSequenceNumber for the given AppVersionShortDescriptionUpdatedEvent: 27995
