@@ -62,6 +62,10 @@ class WebController {
 //                .lastSequenceNumberFor(appAddedToMachineEvent.getAppReference().getAppId().toString());
         String appId = new AppId(id).toString();
         long startTime = System.currentTimeMillis();
+//        eventStore.readEvents(appId).asStream().forEach(e -> {
+//            System.out.println(e.getSequenceNumber());
+//            System.out.println(e.getPayloadType());
+//        });
         Optional<? extends DomainEventMessage<?>> eventMessage = eventStore.readEvents(appId).asStream()
                 .filter(event -> Objects.equals(AppVersionShortDescriptionUpdatedEvent.class, event.getPayloadType()))
                 .filter(event -> Objects.equals(versionId,
@@ -72,7 +76,7 @@ class WebController {
             System.out.println("Using Event-Store::shortDesc of app-id: " + id + " is: "
                     + ((AppVersionShortDescriptionUpdatedEvent) eventMessage.get().getPayload()).getShortDescription().getValue()
                     + " current seq number:: " + eventMessage.get().getSequenceNumber() + " TOTAL TIME TAKEN:: "
-                    + ANSI_GREEN_BACKGROUND +(endTime - startTime) +ANSI_RESET +" ms");
+                    + ANSI_GREEN_BACKGROUND + (endTime - startTime) + ANSI_RESET + " ms");
         }
 
         String appShortDescription = queryGateway
@@ -81,6 +85,6 @@ class WebController {
         long endTime2 = System.currentTimeMillis();
         System.out.println(
                 "Using QueryHandler::short desc. of app-id: " + id + " is: " + appShortDescription + " TOTAL TIME TAKEN:: "
-                        +ANSI_GREEN_BACKGROUND+ (endTime2 - endTime) +ANSI_RESET +" ms");
+                        + ANSI_GREEN_BACKGROUND + (endTime2 - endTime) + ANSI_RESET + " ms");
     }
 }
