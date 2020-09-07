@@ -19,7 +19,7 @@ Apart from above there is commonapi which is included as dependency in above ser
 
 Currently Service2 fetches two types of data:
   - Immutable( Like appType in case of app-inventory, it cannot be changed once the app is created)
-  - Mutable( Like appShortFDescription, it can be changed by events after its creation)
+  - Mutable( Like appShortDescription, it can be changed by events after its creation)
   
  To get apptype of an app, hit below url in browser, in console it shows the total time taken to fetch the apptype using query-handler
  as well as using event-store respectively:
@@ -65,6 +65,6 @@ Currently Service2 fetches two types of data:
 
 - Total no of Tokens in Event-Store: 28059.
 - Total number of aggregates: 30.
-- Token no at which the desired event was found: 28053.
-- Total no of Tokens for the given aggregateIdentifier(d6658316-4d4d-465b-af65-bfe68c0999d8): 28001
-- AggregateSequenceNumber for the given AppVersionShortDescriptionUpdatedEvent: 27995
+- In case of Mutable data, Token no at which the desired event was found: 28053.
+- In case of Mutable data, Total no of Tokens for the given aggregateIdentifier(d6658316-4d4d-465b-af65-bfe68c0999d8): 28001
+- In case of Mutable data, AggregateSequenceNumber for the given AppVersionShortDescriptionUpdatedEvent: 27995
