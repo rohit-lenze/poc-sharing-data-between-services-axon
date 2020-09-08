@@ -52,7 +52,7 @@ Currently Service2 fetches two types of data:
 |6th|d6658316-4d4d-465b-af65-bfe68c0999d8|8 ms|27995 ms
 |7th|d6658316-4d4d-465b-af65-bfe68c0999d8|18 ms|27995 ms
 
-##### With Mutable data( with snapshot).
+##### With Mutable data( with snapshot, current threshold is 100).
 | Run | AppId | Time Taken with Query-Handler | Time Taken with Event-Store |
 |-----|-------|-------------------------------|-----------------------------|
 |1st|d6658316-4d4d-465b-af65-bfe68c0999d8|12 ms|9 ms
