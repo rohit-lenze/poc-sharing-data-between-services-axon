@@ -68,3 +68,7 @@ Currently Service2 fetches two types of data:
 - Total no of Tokens for the given aggregateIdentifier(d6658316-4d4d-465b-af65-bfe68c0999d8): 28001
 - In case of Mutable data, Token no at which the desired event(AppVersionShortDescriptionUpdatedEvent) was found: 28053.
 - In case of Mutable data, AggregateSequenceNumber for the given event(AppVersionShortDescriptionUpdatedEvent): 27995
+
+## OutCome:
+In case of queryHandler the time consumed is more or less remains constant. But with event store it depends on the total number of
+AggregateSequences in the event store and the snapshot threshold(if implemented).
